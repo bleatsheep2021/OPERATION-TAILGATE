@@ -1,5 +1,6 @@
 import random
 import time
+from time import sleep
 
 
 class Submarine:
@@ -10,8 +11,7 @@ class Submarine:
         self.data = data
 
 
-# loading screen is too long
-# 1.2
+
 
 
 
@@ -223,8 +223,86 @@ class Submarine:
         else:
             print("Invalid input! Enter 3 to risk it or 5 to continue.\n")
 
+    def surfaceship(self) -> None:
+        shipclass = random.randint(1,3)
+        if shipclass == 1:
+            print("Capitan, Kirov Class Cruiser dead ahead. It doesnt see us so we might be able to sneak up on\n"
+                           "it and collect some audio recordings on it.")
+            action = input("Your orders Capitan? Continue as normal (Any key), rise to shallower depth to listen to Kirov but we will drift further from the yankee(1)\n")
+            if action == '1':
+                print("Make depth make depth 50 meters.")
+                sleep(1)
+                print("We are rising")
+                sleep(2)
+                action2 = input("Capitan we are 40 meters below the Kirov's keel should we record now (any key) or get closer but risk collision (1)?")
+                if action2 == '1':
+                    print("Make depth 30 meters.")
+                    sleep(2)
+                    crash = random.randint(1,3)
+                    if crash == 1:
+                        self.fail("Collision detected! Hull breach imminent. Damage control to the conning tower!")
+                    else:
+                        print("We are below the kirov now recording audio signature")
+                        print("Recording...")
+                        time.sleep(1)
+                        print("Recording... We need more data...")
+                        time.sleep(1)
+                        print("Got It! Data collected.\n")
+                        print("Capitan it appears that the kirov is testing a low frequency active sonar system. Were safe as they only seem to be testing it in the baffles.")
+                        print("bonus data points collected!")
+                        print("It doesn't see us. We better get back to that Yankee")
+                        sleep(3)
+                        self.distance += random.randint(100, 300)
 
-#from SUB import Submarine
+                else:
+                    print("Capitan we are recording...")
+                    sleep(1)
+                    print("I can hear something...")
+                    sleep(1)
+                    print("Capitan, the kirov is testing a new low frequency active sonar system and its pinging us!")
+                    ping = random.randint(1,2)
+                    if ping == 1:
+                        self.fail("They've seen us!...TORPEDO IN THE WATER! TORPEDO IN THE WATER!")
+
+                    else:
+                        print("It doesn't see us. We've gained a bit of distance from the Yankee")
+                        self.distance += random.randint(100,300)
+
+            else:
+                print("Continuing as normal")
+
+        if shipclass == 2:
+            print("Capitan, Unidentified surface warship bearing 240.")
+            action = input("What should we do? Dive deep (1), rise up to try to identify it (2) or continue as normal (any key)")
+            if action == '1':
+                print("Make depth 50 meters")
+                sleep(1)
+                print("Capitan the vessel is identified as a Kresta I class cruiser")
+                print("The Kresta just went to max speed. Its getting hard to hear the Yankee with all the noise")
+                noise = random.randint(1,2)
+                if noise == 1:
+                    self.fail("We've lost the yankees signature. We better get out of here before we get spotted")
+
+                if noise == 2:
+                    print("We can barely hear the Yankee so we better go back down")
+
+            if action == '2':
+                print("lower the dive planes and dive to 200m")
+                print("Capitan, the ship has not seen us but we have gotten a bit further from the yankee")
+                Sub.distance += random.randint(100,200)
+
+            if action == '3':
+                print("Ok, continuing on course")
+
+        else:
+            print("We have a merchant bearing 156")
+            if Sub.noise > 5:
+                print("The ship changed course and is headnig straight for us")
+                sleep(2)
+                self.fail("They've seen us!...TORPEDO IN THE WATER! TORPEDO IN THE WATER!")
+
+            else:
+                print("the merchant is  ")
 
 Sub = Submarine(200, 0, 100, 0)
 
@@ -276,7 +354,7 @@ print("T")
 time.sleep(0.3)
 print("E")
 time.sleep(1)
-print("\n\nOperation Tailgate\nBy Oscar Craw\nVersion 1.2")
+print("\n\nOperation Tailgate\nBy Oscar Craw\nVersion 1.3")
 time.sleep(5)
 
 
@@ -439,6 +517,9 @@ while True:
 
     if bonus == 1:
         Sub.canyonrun()
+
+    if bonus == 2:
+        Sub.surfaceship()
 
     if Sub.hull < 20:  # adjust threshold as needed
         quit("Warning: Hull Integrity at Critical Level!")
